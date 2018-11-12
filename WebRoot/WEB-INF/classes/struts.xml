@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+
+<struts>
+	<package name="p1" extends="struts-default" namespace="/p1">
+		<action name="Em_*" class="com.action.EmployeeAction" method="{1}">
+			<result name="register">/login.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="namespace">/p2</param>
+				<param name="actionName">sh_showAllEms</param>
+			</result>
+			<result name="fail">/login.jsp</result>
+		</action>
+	</package>
+	
+	<package name="p2" extends="struts-default" namespace="/p2">
+		<interceptors>
+			<interceptor name="myIntercept" class="com.action.MyInterceptor"></interceptor>
+			<interceptor-stack name="myInterceptorStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="myIntercept"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="fail">/login.jsp</result>
+		</global-results>
+		<action name="sh_*" class="com.action.ShowAction" method="{1}">
+			<interceptor-ref name="myInterceptorStack"></interceptor-ref>
+			<result name="showAll">/emplists.jsp</result>
+			<result name="delete" type="redirectAction">sh_showAllEms</result>
+			<result name="insert" type="redirectAction">sh_showAllEms</result>
+			<result name="update" type="redirectAction">sh_showAllEms</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+
+<configuration>
+	<!-- 引小配置文件 -->
+	<properties resource="jdbc.properties"/>
+	<!-- 配置MyBatis运行环境 -->
+	<environments default="development">
+		<!-- 配置当前MyBatis运行环境
+			id:用于区分不同的环境
+		 -->
+	 <environment id="development">
+	 	<!-- 配置事务,由MyBatis提供 -->
+	 	<transactionManager type="JDBC"/>
+	 	<!-- 配置数据源(连接池),数据库基本四项 -->
+	 	<dataSource type="POOLED">
+	 		<property name="driver" value="${driver}"/>
+	 		<property name="url" value="${url}"/>
+	 		<property name="username" value="${username}"/>
+	 		<property name="password" value="${password}"/>
+	 	</dataSource>
+	 </environment>
+	</environments>
+	
+	<!-- 加载Mapper文件,注册mapper文件,
+	告知MyBatis加载哪些mapper文件 -->
+	<mappers>
+		<!-- <mapper resource="com/dao/UserDaoMapper.xml"/> -->
+		<mapper resource="com/dao/EmployeeDaoMapper.xml"/>
+		<mapper resource="com/dao/ShowDaoMapper.xml"/>
+	</mappers>
+  
+</configuration>
